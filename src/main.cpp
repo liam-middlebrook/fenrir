@@ -1,20 +1,19 @@
 #include <GLFW/glfw3.h>
 #include <cstdlib>
+#include "graphics/window.h"
+using namespace Fenrir;
+using namespace Fenrir::Graphics;
 int main()
 {
   if(!glfwInit())
     exit(EXIT_FAILURE);
-  GLFWwindow* window = glfwCreateWindow(640, 480, "Fenrir", NULL, NULL);
-  if(!window)
-  {
-    glfwTerminate();
-    exit(EXIT_FAILURE);
-  }
 
-  while(!glfwWindowShouldClose(window))
+  Window* window = new Window(640, 480, "Fenrir");
+
+  while(window->IsRunning())
   {
     glfwPollEvents();
   }
-  glfwDestroyWindow(window);
+
   return 0;
 }
