@@ -1,6 +1,7 @@
+
 #Makefile for fenrir
-CPPFLAGS += 
-LFLAGS +=
+CPPFLAGS += -L /usr/local/lib -I /usr/local/include -L /usr/lib -I /usr/include
+LFLAGS += -std=c++11 -lpthread -lGL -lGLEW -lX11 -lXxf86vm -lXi -lXrandr -lglfw3 -lXcursor
 CXX = g++
 TARGET = ./bin/fenrir
 
