@@ -14,6 +14,7 @@ namespace Fenrir
       Window(uint width, uint height, char* title);
       ~Window();
     bool IsRunning();
+    void Render();
     protected:
     private:
       GLFWwindow* window;

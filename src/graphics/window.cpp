@@ -10,6 +10,7 @@ Window::Window(uint width, uint height, char* title)
     glfwTerminate();
     exit(EXIT_FAILURE);
   }
+  glfwMakeContextCurrent(this->window);
 }
 
 Window::~Window()
@@ -20,4 +21,9 @@ Window::~Window()
 bool Window::IsRunning()
 {
   return !glfwWindowShouldClose(this->window);
+}
+
+void Window::Render()
+{
+  glfwSwapBuffers(this->window);
 }
