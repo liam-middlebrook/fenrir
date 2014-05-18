@@ -14,7 +14,7 @@ namespace Fenrir
     {
     public:
       Mesh(GLfloat* vertices, uint vertexCount, GLuint shaderProgram);
-      ~Mesh();
+      virtual ~Mesh();
       void DrawMesh(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, bool drawOutline);
       glm::mat4 worldMatrix;
       glm::vec3 fillColor;

@@ -1,5 +1,6 @@
 #include "mesh.h"
 
+#include <iostream>
 using namespace Fenrir;
 using namespace Fenrir::Graphics;
 
@@ -7,7 +8,11 @@ Mesh::Mesh(GLfloat* vertices, uint vertexCount, GLuint shaderProgram)
 {
   this->shaderProgram = shaderProgram;
   this->vertexCount = vertexCount;
-
+  for(int i = 0; i < vertexCount*3; i += 3)
+  {
+    std::cout << "X: " << vertices[i] << " Y: " << vertices[i+1] << " Z: " << vertices[i+2] << std::endl;
+  }
+  std::cout << "shader: " << shaderProgram << std::endl;
   glGenBuffers(1, &this->vertexBuffer);
   glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertexCount* 3, vertices, GL_STATIC_DRAW);
