@@ -3,9 +3,11 @@ using namespace Fenrir;
 using namespace Fenrir::Graphics;
 using namespace Fenrir::Graphics::Primitives;
 
+//Creates a new Cube using the vertices specified in SetVertices
 Cube::Cube(GLuint shaderProgram) : PrimitiveMesh(SetVertices(shaderProgram))
 {}
 
+//Sets the vertices of a cube
 GLuint Cube::SetVertices(GLuint shaderProgram)
 {
   vertexData = new std::vector<GLfloat>();
