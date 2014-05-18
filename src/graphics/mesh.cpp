@@ -85,7 +85,7 @@ void Mesh::DrawMesh(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, bool outli
     glDrawArrays(GL_LINE_STRIP, 0, this->vertexCount*3);
   }
 
-  //disable the position attribute when we're not using it
+  //disable the position attribute when we're not using itmm
   glDisableVertexAttribArray(this->posAttrib);
 }
 
