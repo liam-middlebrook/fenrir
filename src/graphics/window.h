@@ -1,9 +1,9 @@
 #ifndef WINDOW_H_
 #define WINDOW_H_
-
+#define GLEW_STATIC
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
-
 namespace Fenrir
 {
   namespace Graphics
@@ -13,8 +13,9 @@ namespace Fenrir
     public:
       Window(uint width, uint height, char* title);
       ~Window();
-    bool IsRunning();
-    void Render();
+      bool IsRunning();
+      void Render();
+      void Clear(float r, float g, float b);
     protected:
     private:
       GLFWwindow* window;
