@@ -6,4 +6,4 @@ CXX = g++
 TARGET = ./bin/fenrir
 
 all:
-	$(CXX) $(CPPFLAGS) ./src/*.cpp ./src/graphics/*.cpp $(LFLAGS) -o $(TARGET)
+	$(CXX) $(CPPFLAGS) ./src/*.cpp ./src/graphics/*.cpp ./src/graphics/primitives/*.cpp $(LFLAGS) -o $(TARGET)
