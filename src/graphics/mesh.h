@@ -24,6 +24,8 @@ namespace Fenrir
       GLuint vertexBuffer;
       uint vertexCount;
       GLuint shaderProgram;
+      GLuint posAttrib;
+      GLuint vertexArray;
     };
   }
 }
