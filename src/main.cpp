@@ -6,6 +6,7 @@
 #include "graphics/mesh.h"
 #include "graphics/primitives/cube.h"
 #include "graphics/primitives/cone.h"
+#include "graphics/primitives/sphere.h"
 #include "graphics/primitives/cylinder.h"
 using namespace Fenrir;
 using namespace Fenrir::Graphics;
@@ -30,8 +31,12 @@ int main()
   Cone* myCone = new Cone(ShaderFactory::GetInstance()->GetShaderAtIndex(0));
   Cylinder* myCylinder = new Cylinder(ShaderFactory::GetInstance()->GetShaderAtIndex(0));
 
+  Sphere* mySphere = new Sphere(ShaderFactory::GetInstance()->GetShaderAtIndex(0));
+
+
   myCube->fillColor = glm::vec3(1,0,0);
   myCylinder->fillColor = glm::vec3(0,0,1);
+  mySphere->fillColor = glm::vec3(0,1,0);
   myCone->fillColor = glm::vec3(0,1,0);
   glm::mat4 viewMatrix = glm::lookAt(
                                      glm::vec3(3, 3, 5),
@@ -41,12 +46,14 @@ int main()
   while(window->IsRunning())
   {
     window->Clear(100/255.0f, 149/255.0f, 237/255.0f);
+    mySphere->worldMatrix = glm::scale(glm::mat4(1), glm::vec3(0.5))*glm::rotate(glm::mat4(1), (float)glfwGetTime(), glm::vec3(0, 0, 1));
     myCube->worldMatrix = glm::scale(glm::mat4(1), glm::vec3(0.25))*glm::translate(glm::mat4(1), glm::vec3(-5, 0, -4));
     myCone->worldMatrix = glm::scale(glm::mat4(1), glm::vec3(0.5)) * glm::rotate(glm::mat4(1), (float)glfwGetTime(), glm::vec3(1,1,1));
     myCylinder->worldMatrix = glm::scale(glm::mat4(1), glm::vec3(0.5)) * glm::rotate(glm::mat4(1), (float)glfwGetTime(), glm::vec3(1,1,1)) * glm::translate(glm::mat4(1), glm::vec3(7,0,5));
-    myCube->DrawMesh(viewMatrix, projMatrix, true);
-    myCylinder->DrawMesh(viewMatrix, projMatrix, true);
-    myCone->DrawMesh(viewMatrix, projMatrix, true);
+    mySphere->DrawMesh(viewMatrix, projMatrix, true);
+   // myCube->DrawMesh(viewMatrix, projMatrix, true);
+   // myCylinder->DrawMesh(viewMatrix, projMatrix, true);
+   // myCone->DrawMesh(viewMatrix, projMatrix, true);
     window->Render();
     glfwPollEvents();
   }
