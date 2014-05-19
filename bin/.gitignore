@@ -1,3 +1,5 @@
 #.gitignore file for the bin folder
 *
 !.gitignore
+!shaders/
+!shaders/*
