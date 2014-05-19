@@ -14,10 +14,11 @@ namespace Fenrir
       {
       public:
         PrimitiveMesh(GLuint shaderProgram);
-	virtual GLuint SetVertices(GLuint shaderProgram) = 0;
+	virtual GLuint SetVertices(GLuint shaderProgram);
         virtual ~PrimitiveMesh();
       protected:
         std::vector<GLfloat>* vertexData;
+        std::vector<GLuint>* indexData;
       private:
       };
     }

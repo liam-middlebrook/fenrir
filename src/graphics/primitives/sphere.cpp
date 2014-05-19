@@ -10,6 +10,7 @@ Sphere::Sphere(GLuint shaderProgram) : PrimitiveMesh(SetVertices(shaderProgram))
 
 GLuint Sphere::SetVertices(GLuint shaderProgram)
 {
+  this->useIndices = false;
   vertexData = new std::vector<GLfloat>();
 
   //The subdivisions to create the cone using
@@ -49,5 +50,5 @@ GLuint Sphere::SetVertices(GLuint shaderProgram)
     }
   }
   // PrimitiveMesh::PrimitiveMesh(true);
-  return shaderProgram;
+  return PrimitiveMesh::SetVertices(shaderProgram); 
 }

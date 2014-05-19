@@ -55,6 +55,7 @@ void drawCocentricDonut(float divisions, float radius, float innerRadius, float 
 
 GLuint Tube::SetVertices(GLuint shaderProgram)
 {
+  this->useIndices = false;
   vertexData = new std::vector<GLfloat>();
   //The number of subdivision (by angle) on the cylinder
   float divisions = 150;
@@ -73,5 +74,6 @@ GLuint Tube::SetVertices(GLuint shaderProgram)
   drawCocentricDonut(divisions, radius, innerRadius, height, vertexData);
   
   
-  return shaderProgram;
+
+  return PrimitiveMesh::SetVertices(shaderProgram);
 }
