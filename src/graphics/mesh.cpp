@@ -90,7 +90,7 @@ void Mesh::DrawMesh(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, bool outli
   //Draw the vertex data that's in our buffer! (as triangles)
   if(useIndices)
   {
-    glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
+    glDrawElementsInstanced(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0, 50);
   }
   else
   {
@@ -102,7 +102,7 @@ void Mesh::DrawMesh(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, bool outli
     glUniform3f(colorUni, this->strokeColor.x, this->strokeColor.y, this->strokeColor.z);
     if(useIndices)
     {
-      glDrawElements(GL_LINE_STRIP, this->indexCount, GL_UNSIGNED_INT, 0);
+      glDrawElementsInstanced(GL_LINE_STRIP, this->indexCount, GL_UNSIGNED_INT, 0, 50);
     }
     else
     {

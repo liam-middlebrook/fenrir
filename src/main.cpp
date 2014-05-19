@@ -70,7 +70,7 @@ GLuint g_index_buffer_data[] = {
 
 
   glm::mat4 viewMatrix = glm::lookAt(
-                                     glm::vec3(3, 1, 8),
+                                     glm::vec3(3, 1, 25),
                                      glm::vec3(0, 0, 0),
                                      glm::vec3(0, 1, 0));
   glm::mat4 projMatrix = glm::perspective(45.0f, 4.0f/3.0f, 0.01f, 100.0f);
