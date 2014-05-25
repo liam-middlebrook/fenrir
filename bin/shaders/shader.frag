@@ -1,4 +1,4 @@
-#version 130
+#version 430
 uniform vec3 color;
 
 in float instanceID;

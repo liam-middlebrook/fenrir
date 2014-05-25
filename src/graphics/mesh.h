@@ -30,6 +30,7 @@ namespace Fenrir
       GLuint vertexArray;
       GLuint elementBuffer;
       uint indexCount;
+	  glm::mat4* worldMatrices;
     };
   }
 }
