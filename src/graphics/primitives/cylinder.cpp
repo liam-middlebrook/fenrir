@@ -11,6 +11,7 @@ Cylinder::Cylinder(GLuint shaderProgram) : PrimitiveMesh(SetVertices(shaderProgr
 
 GLuint Cylinder::SetVertices(GLuint shaderProgram)
 {
+  this->useIndices = false;
   vertexData = new std::vector<GLfloat>();
   //The number of subdivision (by angle) on the cylinder
   float divisions = 150;
@@ -62,5 +63,5 @@ GLuint Cylinder::SetVertices(GLuint shaderProgram)
       vertexData->push_back(j);//z
     }
   }
-  return shaderProgram;
+  return PrimitiveMesh::SetVertices(shaderProgram);
 }

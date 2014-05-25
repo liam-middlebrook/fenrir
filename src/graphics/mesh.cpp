@@ -4,7 +4,7 @@
 using namespace Fenrir;
 using namespace Fenrir::Graphics;
 
-Mesh::Mesh(GLfloat* vertices, uint vertexCount, GLuint shaderProgram)
+Mesh::Mesh(GLfloat* vertices, uint vertexCount, GLuint* indices, uint indexCount, GLuint shaderProgram)
 {
   //Generate and bind the vertex array that will be used to draw this mesh
   glGenVertexArrays(1, &this->vertexArray);
@@ -13,6 +13,7 @@ Mesh::Mesh(GLfloat* vertices, uint vertexCount, GLuint shaderProgram)
   //copy over the location of the shader program and the vertex count to member variables
   this->shaderProgram = shaderProgram;
   this->vertexCount = vertexCount;
+  this->indexCount = indexCount;
 
   //Loop through all given vertices and write them to console
   for(int i = 0; i < vertexCount*3; i += 3)
@@ -31,6 +32,12 @@ Mesh::Mesh(GLfloat* vertices, uint vertexCount, GLuint shaderProgram)
   //3rd param: the data we are sending over
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertexCount* 3, vertices, GL_STATIC_DRAW);
 
+  if(useIndices)
+  {
+    glGenBuffers(1, &this->elementBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->elementBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indexCount, indices, GL_STATIC_DRAW);
+  }
 
   //Get the location of the position attribute in our shader
   this->posAttrib = glGetAttribLocation(shaderProgram, "position");
@@ -52,6 +59,11 @@ void Mesh::DrawMesh(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, bool outli
   //Rebind our vertex array and vertex buffer
   glBindVertexArray(this->vertexArray);
   glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
+
+  if(useIndices)
+  {
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->elementBuffer);
+  }
 
   //tell OpenGL to use the shader program associated with this mesh when drawing
   glUseProgram(shaderProgram);
@@ -76,13 +88,26 @@ void Mesh::DrawMesh(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, bool outli
   glUniform3f(colorUni, this->fillColor.x, this->fillColor.y, this->fillColor.z);
 
   //Draw the vertex data that's in our buffer! (as triangles)
-  glDrawArrays(GL_TRIANGLES, 0, this->vertexCount*3);
-
+  if(useIndices)
+  {
+    glDrawElementsInstanced(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0, 50);
+  }
+  else
+  {
+    glDrawArrays(GL_TRIANGLES, 0, this->vertexCount*3);
+  }
   //if enabled draw each edge using strokeColor (as lines)
   if(outline)
   {
     glUniform3f(colorUni, this->strokeColor.x, this->strokeColor.y, this->strokeColor.z);
-    glDrawArrays(GL_LINE_STRIP, 0, this->vertexCount*3);
+    if(useIndices)
+    {
+      glDrawElementsInstanced(GL_LINE_STRIP, this->indexCount, GL_UNSIGNED_INT, 0, 50);
+    }
+    else
+    {
+      glDrawArrays(GL_LINE_STRIP, 0, this->vertexCount*3);
+    }
   }
 
   //disable the position attribute when we're not using itmm
