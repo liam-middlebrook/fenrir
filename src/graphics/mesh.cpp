@@ -88,9 +88,12 @@ void Mesh::DrawMesh(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, bool outli
   glUniform3f(colorUni, this->fillColor.x, this->fillColor.y, this->fillColor.z);
 
   //Draw the vertex data that's in our buffer! (as triangles)
+  int instanceCount = 10*10;
   if(useIndices)
   {
-    glDrawElementsInstanced(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0, 50);
+	  GLint instanceUni = glGetUniformLocation(this->shaderProgram, "instanceCount");
+	  glUniform1f(instanceUni, instanceCount);
+    glDrawElementsInstanced(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0, instanceCount);
   }
   else
   {
@@ -102,7 +105,9 @@ void Mesh::DrawMesh(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, bool outli
     glUniform3f(colorUni, this->strokeColor.x, this->strokeColor.y, this->strokeColor.z);
     if(useIndices)
     {
-      glDrawElementsInstanced(GL_LINE_STRIP, this->indexCount, GL_UNSIGNED_INT, 0, 50);
+	  GLint instanceUni = glGetUniformLocation(this->shaderProgram, "instanceCount");
+	  glUniform1f(instanceUni, instanceCount);
+      glDrawElementsInstanced(GL_LINE_STRIP, this->indexCount, GL_UNSIGNED_INT, 0, instanceCount);
     }
     else
     {

@@ -5,13 +5,18 @@ uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 worldMatrix;
 
+out float instanceID;
+
 void main()
 {
+float xPos = mod(gl_InstanceID,10);
+float yPos = floor(gl_InstanceID / 10.);
   mat4 transMat = mat4(
 1, 0, 0, 0,
 0, 1, 0, 0,
 0, 0, 1, 0,
-gl_InstanceID, 0, 0, 1);
+xPos*2., yPos*2., 0, 1);
   gl_Position = projectionMatrix * viewMatrix * worldMatrix * transMat *  vec4(position, 1.0);
-  //gl_Position = vec4(position, 1.0) * worldMatrix * viewMatrix * projectionMatrix;
+  
+  instanceID = gl_InstanceID;
 }
